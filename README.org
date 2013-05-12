@@ -33,15 +33,11 @@ Execute the following targets to test and run the application
 
 On Unix/Linux platforms, run the following command:
 
-#+begin_src sh
-./gradlew test run
-#+end_src
+ : ./gradlew test run
 
 For MS Windows please run the following command:
 
-#+begin_src sh
-gradlew.bat test run
-#+end_src
+ : gradlew.bat test run
 
 ** Using Maven
 
@@ -49,23 +45,17 @@ gradlew.bat test run
 
 For Unix/Linux platforms run the following command:
 
-#+begin_src sh
-./gradlew generatePom
-#+end_src
+ : ./gradlew generatePom
 
 For MS Windows please run the following command:
 
-#+begin_src sh
-gradlew.bat generatePom
-#+end_src
+ : gradlew.bat generatePom
 
 *** Setup and run the program
 
 Now you can run the application using the maven command line:
 
-#+begin_src sh
-mvn install exec:java
-#+end_src
+ : mvn install exec:java
 
 * Generating IDE project files
 This is for people who would rather not use Maven or Gradle.
@@ -74,14 +64,10 @@ This is for people who would rather not use Maven or Gradle.
 
 Please run the following command:
 
-#+begin_src sh
-./gradlew idea eclipse
-#+end_src
+ : ./gradlew idea eclipse
 
 ** Windows
 
 Please run the following command:
 
-#+begin_src sh
-gradlew.bat idea eclipse
-#+end_src
+ : gradlew.bat idea eclipse
