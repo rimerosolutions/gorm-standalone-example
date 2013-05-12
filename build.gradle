@@ -5,16 +5,22 @@ apply plugin: "groovy"
 apply plugin: "maven"
 apply plugin: "application"
 
-sourceCompatibility = 1.6
-targetCompatibility = 1.6
 
 def execMainClassName = "com.rimerosolutions.gorm.Application"
-def organizationId  = "rimerosolutions"
+def organizationId    = "rimerosolutions"
 
-version             = "1.0"
-group               = "com.rimerosolutions.gorm"
-description         = "Gorm standalone - Gradle and Maven"
-mainClassName       = "${execMainClassName}"
+def projectSourceCompatibility = "1.6"
+def projectTargetCompatibility = "1.6"
+
+
+sourceCompatibility = projectSourceCompatibility
+targetCompatibility = projectTargetCompatibility
+
+
+version       = "1.0"
+group         = "com.rimerosolutions.gorm"
+description   = "Gorm standalone - Gradle and Maven"
+mainClassName = "${execMainClassName}"
 
 def mavenArtifactId        = "gorm-standalone-example"
 def slf4jVersion           = "1.6.4"
@@ -34,8 +40,6 @@ repositories {
 }
 
 dependencies {
-        groovy group: "org.codehaus.groovy", name: "groovy", version: groovyVersion
-
         compile ("org.slf4j:slf4j-api:${slf4jVersion}",
                  "org.slf4j:slf4j-log4j12:${slf4jVersion}",
                  "log4j:log4j:1.2.14",
@@ -103,6 +107,8 @@ task generatePom(description: 'Generates the Maven POM descriptor.') << {
 
                                                 configuration {
                                                         compilerId = "groovy-eclipse-compiler"
+														source     = projectSourceCompatibility
+														target     = projectTargetCompatibility
                                                 }
 
                                                 dependencies {
