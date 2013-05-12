@@ -30,7 +30,7 @@ interface PersonService {
         void save(Person person)
 
         /**
-         * Persists a person
+         * Validates the person domain constraints
          * @param person A person
          */
         boolean validate(Person person)
