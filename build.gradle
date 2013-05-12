@@ -1,0 +1,153 @@
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "eclipse"
+apply plugin: "groovy"
+apply plugin: "maven"
+apply plugin: "application"
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+version             = "1.0"
+group               = "com.rimerosolutions.gorm"
+description         = "Gorm standalone - Gradle and Maven"
+mainClassName       = "com.rimerosolutions.gorm.Application"
+
+def mavenArtifactId        = "gorm-standalone-example"
+def slf4jVersion           = "1.6.4"
+def groovyVersion          = "1.8.8"
+def springFrameworkVersion = "3.0.5.RELEASE"
+def grailsVersion          = "2.1.1"
+def gormVersion            = "1.3.5"
+def junitVersion           = "4.11"
+
+repositories {
+        mavenCentral()
+        mavenLocal()
+
+        maven {
+                url "http://repo.grails.org/grails/core/"
+        }
+}
+
+dependencies {
+        groovy group: "org.codehaus.groovy", name: "groovy", version: groovyVersion
+
+        compile ("org.slf4j:slf4j-api:${slf4jVersion}",
+                 "org.slf4j:slf4j-log4j12:${slf4jVersion}",
+                 "log4j:log4j:1.2.14",
+                 "org.codehaus.groovy:groovy-all:${groovyVersion}",
+                 "org.grails:grails-gorm:${gormVersion}",
+                 "org.grails:grails-bootstrap:${grailsVersion}",
+                 'com.h2database:h2:1.3.170',
+                 "org.springframework:spring-context:${springFrameworkVersion}",
+                 "org.springframework:spring-core:${springFrameworkVersion}",
+                 "org.springframework:spring-context-support:${springFrameworkVersion}",
+                 "org.springframework:spring-orm:${springFrameworkVersion}",
+                 "org.springframework:spring-aop:${springFrameworkVersion}",
+                 "org.springframework:spring-core:${springFrameworkVersion}")
+
+        compile("org.springframework.uaa:org.springframework.uaa.client:1.0.3.RELEASE") {
+                exclude group: "org.springframework.roo.wrapping", module:'*'
+        }
+
+        testCompile "junit:junit:${junitVersion}"
+}
+
+task wrapper(type: Wrapper) {
+        gradleVersion = '1.6'
+        jarFile = 'wrapper/wrapper.jar'
+}
+
+task generatePom << {
+        pom {
+                project {
+                        inceptionYear '2013'
+                        description = "${project.description}"
+                        version = "${project.version}"
+                        artifactId = "${mavenArtifactId}"
+                        groupId = "${project.group}"
+                        url = "http://www.google.ca"
+
+                        repositories {
+                                repository {
+                                        id = "grailsCentral"
+                                        url = "http://repo.grails.org/grails/core/"
+                                }
+
+                                repository {
+                                        id = "mavenCentral"
+                                        url = "http://repo1.maven.org/maven2"
+                                }
+                        }
+
+                        scm {
+                                url="http://github.com/rimerosolutions/${mavenArtifactId}.git"
+                                developerConnection="scm:git:git://github.com/rimerosolutions/${mavenArtifactId}.git"
+                                connection = "scm:git:git@github.com:rimerosolutions/${mavenArtifactId}.git"
+                        }
+
+                        build {
+                                plugins {
+                                        plugin {
+                                                artifactId = "maven-compiler-plugin"
+                                                version = "2.3.2"
+
+                                                configuration {
+                                                        compilerId = "groovy-eclipse-compiler"
+                                                }
+
+                                                dependencies {
+                                                        dependency {
+                                                                groupId = "org.codehaus.groovy"
+                                                                artifactId = "groovy-eclipse-compiler"
+                                                                version = "2.7.0-01"
+                                                        }
+
+                                                        dependency {
+                                                                groupId = "org.codehaus.groovy"
+                                                                artifactId = "groovy-eclipse-batch"
+                                                                version = "1.8.6-01"
+                                                        }
+                                                }
+                                        }
+
+                                        plugin {
+                                                groupId = "org.codehaus.groovy"
+                                                artifactId = "groovy-eclipse-compiler"
+                                                version = "2.7.0-01"
+                                                extensions = "true"
+                                        }
+
+                                        plugin {
+                                                groupId = "org.codehaus.mojo"
+                                                artifactId = "exec-maven-plugin"
+                                                version = "1.2.1"
+
+                                                configuration {
+                                                        executable = "java"
+                                                        mainClass = "com.rimerosolutions.gorm.Application"
+                                                }
+                                        }
+
+                                }
+                        }
+
+                        licenses {
+                                license {
+                                        name 'The Apache Software License, Version 2.0'
+                                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                                        distribution 'repo'
+                                }
+                        }
+
+                        developers {
+                                developer {
+                                        id = 'rimerosolutions'
+                                        name = 'Yves Zoundi'
+                                        email = 'rimerosolutions@gmail.com'
+                                }
+                        }
+                }
+        }.writeTo("$projectDir/pom.xml")
+}

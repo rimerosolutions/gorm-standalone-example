@@ -1,0 +1,87 @@
+#+TITLE: GORM example without Grails
+
+* Summary
+
+This is a simple example demonstrating the usage of [[http://grails.org/doc/latest/guide/GORM.html][GORM]] outside [[http://grails.org][Grails]].
+
+- The application loads Spring Beans definitions using the Grails Spring DSL
+- Once the Spring Beans are accessible, some persons(domain objects) are persisted using a Spring Service.
+
+[[http://gradle.org][Gradle]] or [[http://maven.apache.org][Maven]] can be used as build systems. 
+To use Maven you'll need to generate the POM file using the gradle wrapper(explained later below).
+
+* Configuration and Data
+
+Here are the main resources of the project:
+- Gradle build file (=build.gradle=)
+- Spring bean definitions using the [[http://grails.org/doc/latest/guide/spring.html#springdsl][Grails Spring DSL]] (=src/main/resources/SpringBeans.groovy=)
+- Resource bundle for validation errors translations (=src/main/resources/message.properties=)
+- [[http://logging.apache.org/log4j/1.2/][Log4j]] configuration (=src/main/resources/log4j.properties=)
+
+* Gotchas
+- Dependency resolution and GORM (methods missing in some Spring Framework releases expected to be found by specific GORM versions)
+- Other dependencies issues depending on the versions of Grails (grails-bootstrap), Spring Framework and GORM (grails-gorm)
+- For domain operations, either use transactional services or make sure that the Hibernate session is bound:
+ - =domainClass.withNewSession=
+ - =domainClass.withTransaction=
+
+* Running the application
+
+** Using Gradle
+
+Execute the following targets to test and run the application
+
+On Unix/Linux platforms, run the following command:
+
+#+begin_src sh
+./gradlew test run
+#+end_src
+
+For MS Windows please run the following command:
+
+#+begin_src sh
+gradlew.bat test run
+#+end_src
+
+** Using Maven
+
+*** Generate the Maven POM file
+
+For Unix/Linux platforms run the following command:
+
+#+begin_src sh
+./gradlew generatePom
+#+end_src
+
+For MS Windows please run the following command:
+
+#+begin_src sh
+gradlew.bat generatePom
+#+end_src
+
+*** Setup and run the program
+
+Now you can run the application using the maven command line:
+
+#+begin_src sh
+mvn install exec:java
+#+end_src
+
+* Generating IDE project files
+This is for people who would rather not use Maven or Gradle.
+
+** Unix/Linux platforms
+
+Please run the following command:
+
+#+begin_src sh
+./gradlew idea eclipse
+#+end_src
+
+** Windows
+
+Please run the following command:
+
+#+begin_src sh
+gradlew.bat idea eclipse
+#+end_src
