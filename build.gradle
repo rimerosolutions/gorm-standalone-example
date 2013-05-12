@@ -67,7 +67,12 @@ task generatePom << {
                         version = "${project.version}"
                         artifactId = "${mavenArtifactId}"
                         groupId = "${project.group}"
-                        url = "http://www.google.ca"
+                        url = "http://www.rimerosolutions.com"
+
+                        organization {
+                                name = "Rimero Solutions Inc."
+                                url = "http://www.rimerosolutions.com"
+                        }
 
                         repositories {
                                 repository {
