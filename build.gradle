@@ -67,7 +67,7 @@ task generatePom << {
                         version = "${project.version}"
                         artifactId = "${mavenArtifactId}"
                         groupId = "${project.group}"
-                        url = "http://www.rimerosolutions.com"
+                        url = "https://github.com/rimerosolutions/gorm-standalone-example/"
 
                         organization {
                                 name = "Rimero Solutions Inc."
