@@ -8,10 +8,13 @@ apply plugin: "application"
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
+def execMainClassName = "com.rimerosolutions.gorm.Application"
+def organizationId  = "rimerosolutions"
+
 version             = "1.0"
 group               = "com.rimerosolutions.gorm"
 description         = "Gorm standalone - Gradle and Maven"
-mainClassName       = "com.rimerosolutions.gorm.Application"
+mainClassName       = "${execMainClassName}"
 
 def mavenArtifactId        = "gorm-standalone-example"
 def slf4jVersion           = "1.6.4"
@@ -54,42 +57,42 @@ dependencies {
         testCompile "junit:junit:${junitVersion}"
 }
 
-task wrapper(type: Wrapper) {
+task wrapper(type: Wrapper, description: 'Generates the Gradle wrapper.') {
         gradleVersion = '1.6'
         jarFile = 'wrapper/wrapper.jar'
 }
 
-task generatePom << {
+task generatePom(description: 'Generates the Maven POM descriptor.') << {
         pom {
                 project {
                         inceptionYear '2013'
                         description = "${project.description}"
                         version = "${project.version}"
-                        artifactId = "${mavenArtifactId}"
+                        artifactId = mavenArtifactId
                         groupId = "${project.group}"
-                        url = "https://github.com/rimerosolutions/gorm-standalone-example/"
+                        url = "https://github.com/${organizationId}/${mavenArtifactId}/"
 
                         organization {
                                 name = "Rimero Solutions Inc."
-                                url = "http://www.rimerosolutions.com"
+                                url  = "http://www.rimerosolutions.com"
                         }
 
                         repositories {
                                 repository {
-                                        id = "grailsCentral"
+                                        id  = "grailsCentral"
                                         url = "http://repo.grails.org/grails/core/"
                                 }
 
                                 repository {
-                                        id = "mavenCentral"
+                                        id  = "mavenCentral"
                                         url = "http://repo1.maven.org/maven2"
                                 }
                         }
 
                         scm {
-                                url="http://github.com/rimerosolutions/${mavenArtifactId}.git"
-                                developerConnection="scm:git:git://github.com/rimerosolutions/${mavenArtifactId}.git"
-                                connection = "scm:git:git@github.com:rimerosolutions/${mavenArtifactId}.git"
+                                url="http://github.com/${organizationId}/${mavenArtifactId}.git"
+                                developerConnection="scm:git:git://github.com/${organizationId}/${mavenArtifactId}.git"
+                                connection = "scm:git:git@github.com:${organizationId}/${mavenArtifactId}.git"
                         }
 
                         build {
@@ -131,7 +134,7 @@ task generatePom << {
 
                                                 configuration {
                                                         executable = "java"
-                                                        mainClass = "com.rimerosolutions.gorm.Application"
+                                                        mainClass = execMainClassName
                                                 }
                                         }
 
@@ -148,9 +151,9 @@ task generatePom << {
 
                         developers {
                                 developer {
-                                        id = 'rimerosolutions'
+                                        id = organizationId
                                         name = 'Yves Zoundi'
-                                        email = 'rimerosolutions@gmail.com'
+                                        email = "${organizationId}@gmail.com"
                                 }
                         }
                 }

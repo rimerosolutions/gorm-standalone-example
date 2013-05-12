@@ -18,7 +18,6 @@ package com.rimerosolutions.gorm
 import com.rimerosolutions.gorm.domain.Person
 import com.rimerosolutions.gorm.service.PersonService
 import org.springframework.context.ApplicationContext
-import org.springframework.context.MessageSource
 import grails.spring.BeanBuilder
 import org.junit.Test
 import static org.junit.Assert.assertEquals
@@ -28,15 +27,14 @@ import static org.junit.Assert.assertEquals
  *
  * @author Yves Zoundi
  */
-public class GormIntegrationTest {
+class GormIntegrationTest {
 
         @Test
-        public void testPersistence() {
+        void testPersistence() {
                 BeanBuilder beanBuilder = new BeanBuilder()
                 beanBuilder.loadBeans("classpath:SpringBeans.groovy")
 
                 ApplicationContext context = beanBuilder.createApplicationContext()
-                MessageSource msg = context.getBean("messageSource") as MessageSource
 
                 // Alternative to transactional services would be DomainClass.withTransaction
                 PersonService personService = context.getBean("personService") as PersonService
@@ -51,8 +49,6 @@ public class GormIntegrationTest {
 
                 assertEquals(persistedPerson.firstName, "Rimero")
                 assertEquals(persistedPerson.lastName,"Solutions")
-
-
         }
 
 }
