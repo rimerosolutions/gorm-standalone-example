@@ -5,17 +5,14 @@ apply plugin: "groovy"
 apply plugin: "maven"
 apply plugin: "application"
 
-
 def execMainClassName = "com.rimerosolutions.gorm.Application"
 def organizationId    = "rimerosolutions"
 
 def projectSourceCompatibility = "1.6"
 def projectTargetCompatibility = "1.6"
 
-
 sourceCompatibility = projectSourceCompatibility
 targetCompatibility = projectTargetCompatibility
-
 
 version       = "1.0"
 group         = "com.rimerosolutions.gorm"
@@ -107,8 +104,8 @@ task generatePom(description: 'Generates the Maven POM descriptor.') << {
 
                                                 configuration {
                                                         compilerId = "groovy-eclipse-compiler"
-														source     = projectSourceCompatibility
-														target     = projectTargetCompatibility
+                                                        source     = projectSourceCompatibility
+                                                        target     = projectTargetCompatibility
                                                 }
 
                                                 dependencies {
