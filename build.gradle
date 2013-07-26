@@ -14,9 +14,6 @@ def projectTargetCompatibility = "1.6"
 sourceCompatibility = projectSourceCompatibility
 targetCompatibility = projectTargetCompatibility
 
-version       = "1.0"
-group         = "com.rimerosolutions.gorm"
-description   = "Gorm standalone - Gradle and Maven"
 mainClassName = "${execMainClassName}"
 
 def mavenArtifactId        = "gorm-standalone-example"

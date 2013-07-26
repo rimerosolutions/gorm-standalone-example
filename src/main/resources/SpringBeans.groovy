@@ -36,7 +36,8 @@ beans {
         gorm.sessionFactory("data-source-ref": "dataSource",
                             "base-package": "com.rimerosolutions.gorm.domain",
                             "message-source-ref": "messageSource") {
-                hibernateProperties = ["hibernate.hbm2ddl.auto": "update"]
+                hibernateProperties = ["hibernate.hbm2ddl.auto": "update",
+                                       "hibernate.dialect": "org.hibernate.dialect.H2Dialect"]
         }
 
         context."component-scan"("base-package": "com.rimerosolutions.gorm")
