@@ -22,6 +22,9 @@ beans {
         xmlns context:"http://www.springframework.org/schema/context"
         xmlns tx:"http://www.springframework.org/schema/tx"
 
+        context."annotation-config"()
+        tx."annotation-driven"()
+
         messageSource(ResourceBundleMessageSource) {
                 basename = "messages"
         }
@@ -36,12 +39,9 @@ beans {
         gorm.sessionFactory("data-source-ref": "dataSource",
                             "base-package": "com.rimerosolutions.gorm.domain",
                             "message-source-ref": "messageSource") {
-                hibernateProperties = ["hibernate.hbm2ddl.auto": "update",
+                hibernateProperties = ["hibernate.hbm2ddl.auto": "create-drop",
                                        "hibernate.dialect": "org.hibernate.dialect.H2Dialect"]
         }
 
         context."component-scan"("base-package": "com.rimerosolutions.gorm")
-        context."annotation-config"()
-
-        tx."annotation-driven"()
 }

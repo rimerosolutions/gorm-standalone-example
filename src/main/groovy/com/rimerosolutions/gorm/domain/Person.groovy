@@ -24,7 +24,7 @@ import groovy.transform.EqualsAndHashCode
  * @author Yves Zoundi
  */
 @Entity
-@EqualsAndHashCode
+@EqualsAndHashCode(includes="id")
 class Person {
         /** The first name */
         String firstName
@@ -32,13 +32,27 @@ class Person {
         /** The last name */
         String lastName
 
+        // Test autotimestamp...
+        Date dateCreated
+        Date lastUpdated
+
         /** Validation constraints */
         static constraints = {
                 firstName size: 5..10, blank: false
                 lastName size: 5..10, blank: false
+
+                // REQUIRED to pass validation
+                dateCreated nullable:true
+                lastUpdated nullable:true
+        }
+
+        def beforeUpdate = {
+                if (firstName == "Ludovic") {
+                        firstName = "Rimero1"
+                }
         }
 
         String toString() {
-                "Person {firstName=${firstName}, lastName=${lastName}}"
+                "Person [firstName=${firstName}, lastName=${lastName}}, dateCreated=${dateCreated}, lastUpdated=${lastUpdated}]"
         }
 }

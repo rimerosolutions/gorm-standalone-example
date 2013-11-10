@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class DefaultPersonService implements PersonService {
         void save(Person person) {
-                person.save()
+                person.save(flush:true)
         }
 
         boolean validate(Person person) {
