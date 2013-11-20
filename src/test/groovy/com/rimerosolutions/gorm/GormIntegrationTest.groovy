@@ -21,6 +21,7 @@ import org.springframework.context.ApplicationContext
 import grails.spring.BeanBuilder
 import org.junit.Test
 import static org.junit.Assert.assertEquals
+import com.rimerosolutions.gorm.utils.GormInterceptorsHelper
 
 /**
  * Simple integration test
@@ -36,10 +37,15 @@ class GormIntegrationTest {
 
                 ApplicationContext context = beanBuilder.createApplicationContext()
 
+                def sf = context.getBean("sessionFactory")
+                GormInterceptorsHelper.initializeInterceptors(sf)
+                
                 // Alternative to transactional services would be DomainClass.withTransaction
                 PersonService personService = context.getBean("personService") as PersonService
 
                 Person person = new Person("firstName": "Rimero", "lastName":"Solutions")
+
+
                 personService.save(person)
 
                 List<Person> persons = personService.findAll()
