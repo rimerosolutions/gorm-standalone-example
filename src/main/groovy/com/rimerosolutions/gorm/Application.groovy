@@ -23,7 +23,6 @@ import org.springframework.context.ApplicationContext
 import org.springframework.context.MessageSource
 import org.springframework.validation.FieldError
 import grails.spring.BeanBuilder
-import com.rimerosolutions.gorm.utils.GormInterceptorsHelper
 
 /**
  * Application launcher
@@ -43,7 +42,6 @@ class Application {
 
                 // Inject interceptors for hibernate event closures in domain classes and autoTimestamping
                 def sf = context.getBean("sessionFactory")
-                GormInterceptorsHelper.initializeInterceptors(sf)
 
                 // Alternative to transactional services would be DomainClass.withTransaction
                 PersonService personService = context.getBean("personService") as PersonService

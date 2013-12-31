@@ -16,6 +16,8 @@
 
 import org.apache.commons.dbcp.BasicDataSource
 import org.springframework.context.support.ResourceBundleMessageSource
+import org.codehaus.groovy.grails.orm.hibernate.events.PatchedDefaultFlushEventListener
+import org.codehaus.groovy.grails.orm.hibernate.support.ClosureEventTriggeringInterceptor
 
 beans {
         xmlns gorm:"http://grails.org/schema/gorm"
@@ -39,9 +41,21 @@ beans {
         gorm.sessionFactory("data-source-ref": "dataSource",
                             "base-package": "com.rimerosolutions.gorm.domain",
                             "message-source-ref": "messageSource") {
+
                 hibernateProperties = ["hibernate.hbm2ddl.auto": "create-drop",
                                        "hibernate.dialect": "org.hibernate.dialect.H2Dialect"]
-        }
 
+                eventListeners = ["flush": new PatchedDefaultFlushEventListener(),
+                                  "pre-load": new ClosureEventTriggeringInterceptor(),
+                                  "post-load": new ClosureEventTriggeringInterceptor(),
+                                  "save": new ClosureEventTriggeringInterceptor(),
+                                  "save-update": new ClosureEventTriggeringInterceptor(),
+                                  "post-insert": new ClosureEventTriggeringInterceptor(),
+                                  "pre-update": new ClosureEventTriggeringInterceptor(),
+                                  "post-update": new ClosureEventTriggeringInterceptor(),
+                                  "pre-delete": new ClosureEventTriggeringInterceptor(),
+                                  "post-delete": new ClosureEventTriggeringInterceptor()]
+        }
+        
         context."component-scan"("base-package": "com.rimerosolutions.gorm")
 }
