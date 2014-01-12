@@ -7,8 +7,7 @@ This is a simple example demonstrating the usage of [[http://grails.org/doc/late
 - The application loads Spring Beans definitions using the Grails Spring DSL
 - Once the Spring Beans are accessible, some persons(domain objects) are persisted using a Spring Service.
 
-[[http://gradle.org][Gradle]] or [[http://maven.apache.org][Maven]] can be used as build systems. 
-To use Maven you'll need to generate the POM file using the gradle wrapper(explained later below).
+[[http://gradle.org][Gradle]] is used as build system.
 
 * Configuration and Data
 
@@ -27,8 +26,6 @@ Here are the main resources of the project:
 
 * Running the application
 
-** Using Gradle
-
 Execute the following targets to test and run the application
 
 On Unix/Linux platforms, run the following command:
@@ -38,24 +35,6 @@ On Unix/Linux platforms, run the following command:
 For MS Windows please run the following command:
 
  : gradlew.bat test run
-
-** Using Maven
-
-*** Generate the Maven POM file
-
-For Unix/Linux platforms run the following command:
-
- : ./gradlew generatePom
-
-For MS Windows please run the following command:
-
- : gradlew.bat generatePom
-
-*** Setup and run the program
-
-Now you can run the application using the maven command line:
-
- : mvn install exec:java
 
 * Generating IDE project files
 This is for people who would rather not use Maven or Gradle.

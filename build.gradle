@@ -1,36 +1,36 @@
-apply plugin: "java"
-apply plugin: "idea"
-apply plugin: "eclipse"
-apply plugin: "groovy"
-apply plugin: "maven"
-apply plugin: "application"
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'application'
 
-def execMainClassName = "com.rimerosolutions.gorm.Application"
-def organizationId    = "rimerosolutions"
+def execMainClassName = 'com.rimerosolutions.gorm.Application'
+def organizationId    = 'rimerosolutions'
 
-def projectSourceCompatibility = "1.6"
-def projectTargetCompatibility = "1.6"
+def projectSourceCompatibility = '1.6'
+def projectTargetCompatibility = '1.6'
 
 sourceCompatibility = projectSourceCompatibility
 targetCompatibility = projectTargetCompatibility
 
 mainClassName = "${execMainClassName}"
 
-def mavenArtifactId           = "gorm-standalone-example"
-def slf4jVersion              = "1.6.4"
-def groovyVersion             = "2.0.8"
-def springFrameworkUaaVersion = "1.0.3.RELEASE"
-def grailsVersion             = "2.2.4"
-def gormVersion               = "1.3.7"
-def junitVersion              = "4.11"
-def log4jVersion              = "1.2.16"
-def h2Version                 = "1.3.170"
-def gradleWrapperVersion      = "1.6"
+def mavenArtifactId           = 'gorm-standalone-example'
+def slf4jVersion              = '1.6.4'
+def groovyVersion             = '2.0.8'
+def springFrameworkUaaVersion = '1.0.3.RELEASE'
+def grailsVersion             = '2.2.4'
+def gormVersion               = '1.3.7'
+def junitVersion              = '4.11'
+def log4jVersion              = '1.2.16'
+def h2Version                 = '1.3.170'
+def gradleWrapperVersion      = '1.6'
 
 repositories {
         mavenCentral()
         mavenLocal()
-        maven { url "http://repo.grails.org/grails/core/" }
+        maven { url 'http://repo.grails.org/grails/core/' }
 }
 
 dependencies {
@@ -44,7 +44,7 @@ dependencies {
                  "org.grails:grails-spring:$grailsVersion")
 
         compile("org.springframework.uaa:org.springframework.uaa.client:$springFrameworkUaaVersion") {
-                exclude group: "org.springframework.roo.wrapping", module:'*'
+                exclude group: 'org.springframework.roo.wrapping', module:'*'
         }
 
         testCompile "junit:junit:$junitVersion"
@@ -53,104 +53,4 @@ dependencies {
 task wrapper(type: Wrapper, description: 'Generates the Gradle wrapper.') {
         gradleVersion = gradleWrapperVersion
         jarFile = 'wrapper/wrapper.jar'
-}
-
-task generatePom(description: 'Generates the Maven POM descriptor.') << {
-        pom {
-                project {
-                        inceptionYear '2013'
-                        description = "${project.description}"
-                        version = "${project.version}"
-                        artifactId = mavenArtifactId
-                        groupId = "${project.group}"
-                        url = "https://github.com/${organizationId}/${mavenArtifactId}/"
-
-                        organization {
-                                name = "Rimero Solutions Inc."
-                                url  = "http://www.rimerosolutions.com"
-                        }
-
-                        repositories {
-                                repository {
-                                        id  = "grailsCentral"
-                                        url = "http://repo.grails.org/grails/core/"
-                                }
-
-                                repository {
-                                        id  = "mavenCentral"
-                                        url = "http://repo1.maven.org/maven2"
-                                }
-                        }
-
-                        scm {
-                                url="http://github.com/${organizationId}/${mavenArtifactId}.git"
-                                developerConnection="scm:git:git://github.com/${organizationId}/${mavenArtifactId}.git"
-                                connection = "scm:git:git@github.com:${organizationId}/${mavenArtifactId}.git"
-                        }
-
-                        build {
-                                plugins {
-                                        plugin {
-                                                artifactId = "maven-compiler-plugin"
-                                                version = "2.3.2"
-
-                                                configuration {
-                                                        compilerId = "groovy-eclipse-compiler"
-                                                        source     = projectSourceCompatibility
-                                                        target     = projectTargetCompatibility
-                                                }
-
-                                                dependencies {
-                                                        dependency {
-                                                                groupId = "org.codehaus.groovy"
-                                                                artifactId = "groovy-eclipse-compiler"
-                                                                version = "2.7.0-01"
-                                                        }
-
-                                                        dependency {
-                                                                groupId = "org.codehaus.groovy"
-                                                                artifactId = "groovy-eclipse-batch"
-                                                                version = "1.8.6-01"
-                                                        }
-                                                }
-                                        }
-
-                                        plugin {
-                                                groupId = "org.codehaus.groovy"
-                                                artifactId = "groovy-eclipse-compiler"
-                                                version = "2.7.0-01"
-                                                extensions = "true"
-                                        }
-
-                                        plugin {
-                                                groupId = "org.codehaus.mojo"
-                                                artifactId = "exec-maven-plugin"
-                                                version = "1.2.1"
-
-                                                configuration {
-                                                        executable = "java"
-                                                        mainClass = execMainClassName
-                                                }
-                                        }
-
-                                }
-                        }
-
-                        licenses {
-                                license {
-                                        name 'The Apache Software License, Version 2.0'
-                                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                                        distribution 'repo'
-                                }
-                        }
-
-                        developers {
-                                developer {
-                                        id = organizationId
-                                        name = 'Yves Zoundi'
-                                        email = "${organizationId}@gmail.com"
-                                }
-                        }
-                }
-        }.writeTo("$projectDir/pom.xml")
 }

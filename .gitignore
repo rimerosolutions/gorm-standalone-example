@@ -2,3 +2,5 @@
 build
 .gradle
 .projectile
+/target
+/pom.xml
