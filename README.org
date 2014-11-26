@@ -7,7 +7,11 @@ This is a simple example demonstrating the usage of [[http://grails.org/doc/late
 - The application loads Spring Beans definitions using the Grails Spring DSL
 - Once the Spring Beans are accessible, some persons(domain objects) are persisted using a Spring Service.
 
-[[http://gradle.org][Gradle]] is used as build system.
+* Notes
+
+- [[http://gradle.org][Gradle]] is used as build system and the project was tested under JDK6.
+- This test application doesn't work for Grails 2.3 and latest versions.
+- For recent versions of Grails 2.4+, please refer to the [[https://github.com/rimerosolutions/][gorm-standalone-example-2_4_x]] project.
 
 * Configuration and Data
 
@@ -37,7 +41,7 @@ For MS Windows please run the following command:
  : gradlew.bat test run
 
 * Generating IDE project files
-This is for people who would rather not use Maven or Gradle.
+This is for people who would rather not use Gradle.
 
 ** Unix/Linux platforms
 
